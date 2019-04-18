@@ -1,17 +1,21 @@
 package helloworld;
 
 import org.apache.commons.lang3.StringUtils;
+import sun.misc.Regexp;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.jws.soap.SOAPBinding;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Start {
 
     public static void main(String[] args) throws Exception {
-        task34_2.main(args);
+        task54.main(args);
     }
 
     private static class task1 {
@@ -750,7 +754,8 @@ public class Start {
         }
     }
 
-    //TODO ПОПРАКТИКОАТЬСЯ С ЛЯМБДАМИ
+    //TODO lambda practice
+
     private static class task34_2 {
         public static void main(String[] args) throws Exception {
             ArrayList<String> list = new ArrayList<>();
@@ -794,5 +799,560 @@ public class Start {
         }
     }
 
+    private static class task35 {
+        public static void main() throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            ArrayList<String> arr = new ArrayList<>();
+            String temp = null;
+            for (int i = 1; i > 0; i++) {
+                temp = bufferedReader.readLine();
+                if (temp.equals("end")) {
+                    break;
+                } else arr.add(temp);
+            }
+            for (String s : arr) {
+                System.out.println(s);
+
+            }
+        }
+    }
+
+    //descending sort of int
+
+    private static class task36 {
+        public static void main(String[] args) throws Exception {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            int[] array = new int[5];
+            for (int i = 0; i < 5; i++) {
+                array[i] = Integer.parseInt(reader.readLine());
+            }
+
+            sort(array);
+
+            for (int x : array) {
+                System.out.println(x);
+            }
+        }
+
+        public static void sort(int[] array) {
+            int[] arr = new int[5];
+            for (int i = 0; i < array.length; i++) {
+                arr[i] = -array[i];
+            }
+            Arrays.sort(arr);
+            for (int i = 0; i < array.length; i++) {
+                array[i] = -arr[i];
+            }
+            //вариант 2
+
+   /*         for (int i = 0; i < array.length; i++) {
+                array[i] = array[i] * -1;
+            }
+            Arrays.sort(array);
+            for (int i = 0; i < array.length; i++) {
+                array[i] = array[i] * -1;
+            }*/
+        }
+    }
+
+    private static class task37 {
+
+        public static void main(String[] args) throws IOException {
+            //напишите тут ваш код
+            ArrayList<Integer> integerArrayList = new ArrayList<>();
+            ArrayList<Integer> counter = new ArrayList<>();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            for (int i = 0; i < 10; i++) {
+                integerArrayList.add(Integer.valueOf(bufferedReader.readLine()));
+            }
+            int count = 1;
+           /* for (Integer i : integerArrayList
+                    ) {
+                System.out.println(i);
+            }*/
+
+            for (int i = 1; i < integerArrayList.size(); i++) {
+                if (integerArrayList.get(i).equals(integerArrayList.get(i - 1))) {
+                    count++;
+                } else count = 1;
+                counter.add(count);
+            }
+            System.out.println(Collections.max(counter));
+/*            for (Integer i : counter
+                    ) {
+                System.out.println(i);
+            }*/
+
+        }
+    }
+
+    private static class task38 {
+        public static HashMap<String, Date> createMap() throws ParseException {
+            DateFormat df = new SimpleDateFormat("MMMMM d yyyy", Locale.ENGLISH);
+            HashMap<String, Date> map = new HashMap<String, Date>();
+            map.put("Stallone", df.parse("JULY 1 1981"));
+            map.put("Stallone", df.parse("SEPTEMBER 1 1982"));
+            map.put("Stallon", df.parse("JANUARY 1 1983"));
+            map.put("Stalle", df.parse("MAY 1 1984"));
+            map.put("Stallon", df.parse("JUNE 1 1940"));
+            map.put("Stlone", df.parse("JUNE 1 1985"));
+            map.put("Staone", df.parse("JUNE 1 1967"));
+            map.put("Stalle", df.parse("JUNE 1 1977"));
+            map.put("Stone", df.parse("JUNE 1 1923"));
+            map.put("Stalne", df.parse("JUNE 1 1933"));
+            return map;
+        }
+
+        public static void removeAllSummerPeople(HashMap<String, Date> map) {
+            map.entrySet().removeIf(dateEntry -> dateEntry.getValue().toString().contains("Jun")
+                    || dateEntry.toString().contains("Jul")
+                    || dateEntry.toString().contains("Aug"));
+
+
+        }
+
+        public static void main(String[] args) throws ParseException {
+            HashMap hashMap = createMap();
+            removeAllSummerPeople(hashMap);
+            hashMap.forEach((key, value) -> {
+                System.out.println("key: " + key + " value: " + value);
+            });
+
+        }
+    }
+
+    private static class task39 {
+        public static HashMap<String, String> createMap() {
+            //напишите тут ваш код
+            HashMap<String, String> hashMap = new HashMap<>();
+            for (int i = 0; i < 10; i++) {
+                hashMap.put(Integer.toString(i), Integer.toString(i) + Integer.toString(i));
+            }
+            hashMap.put("11", "22");
+            hashMap.put("12", "33");
+            return hashMap;
+        }
+
+        public static void removeTheFirstNameDuplicates(Map<String, String> map) {
+            HashMap<String, String> copy = new HashMap(map);
+            int count = 0;
+            ArrayList<String> arrayList = new ArrayList<>();
+            for (Map.Entry entry : map.entrySet()
+                    ) {
+                for (Map.Entry copyEntry : copy.entrySet()
+                        ) {
+                    if (copyEntry.getValue().equals(entry.getValue())) {
+                        count++;
+                    }
+                    if (count > 1) {
+                        System.out.println("Стираем: " + entry.getValue().toString());
+                        arrayList.add(entry.getValue().toString());
+                        //    removeItemFromMapByValue(map, entry.getValue().toString());
+                        count = 1;
+                    }
+                }
+                count = 0;
+            }
+            for (String s : arrayList
+                    ) {
+                map.entrySet().removeIf(stringStringEntry -> stringStringEntry.getValue().equals(s));
+            }
+
+        }
+
+
+        public static void removeItemFromMapByValue(Map<String, String> map, String value) {
+            HashMap<String, String> copy = new HashMap<String, String>(map);
+            for (Map.Entry<String, String> pair : copy.entrySet()) {
+                if (pair.getValue().equals(value))
+                    map.remove(pair.getKey());
+            }
+        }
+
+
+        public static void main(String[] args) {
+            HashMap hashMap = createMap();
+            removeTheFirstNameDuplicates(hashMap);
+            hashMap.forEach((key, value) -> {
+                System.out.println("key: " + key + " Value: " + value);
+
+            });
+        }
+    }
+
+    private static class task40 {
+        public static void main(String[] args) throws IOException {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String s = reader.readLine();
+            String[] arr = s.split("\\w+\\s+/g");
+            //  Arrays.stream(arr).forEach(s1 -> StringUtils.capitalize(s1));
+            //   Arrays.stream(arr).forEach(System.out::println);
+            Regexp regexp = new Regexp("\\s +");
+
+
+        }
+    }
+
+    private static class toUpperCase {
+        public static void main(String[] args) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String text = bufferedReader.readLine();
+            StringBuilder sb = new StringBuilder(text);
+            for (int i = 0; i < sb.length(); i++)
+                if (i == 0 || sb.charAt(i - 1) == ' ')
+                    sb.setCharAt(i, Character.toUpperCase(sb.charAt(i)));
+            System.out.println(sb.toString());
+        }
+    }
+
+    private static class task41 {
+        public static void main(String[] args) throws ParseException {
+            System.out.println(isDateOdd("MAY 3 2013"));
+        }
+
+        public static boolean isDateOdd(String date) throws ParseException {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMMM d yyyy", Locale.ENGLISH);
+            Date dateEnd = simpleDateFormat.parse(date);
+            int year = dateEnd.getYear();
+            Date dateStart = new Date(year, 1, 1);
+            long diffBetweenDays = dateEnd.getTime() - dateStart.getTime();
+            long days = TimeUnit.DAYS.convert(diffBetweenDays, TimeUnit.MILLISECONDS);
+            return days % 2 != 0;
+        }
+    }
+
+    //bubble sort for String
+    private static class task42 {
+        public static void main(String[] args) throws Exception {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String[] array = new String[20];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = reader.readLine();
+            }
+
+            sort(array);
+
+            for (String x : array) {
+                System.out.println(x);
+            }
+        }
+
+        public static void sort(String[] array) {
+            String temp;
+            for (int i = 0; i < array.length; i++) {
+                for (int j = i + 1; j < array.length; j++)
+                    if (isGreaterThan(array[i], array[j])) {
+                        temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+            }
+        }
+
+        public static boolean isGreaterThan(String a, String b) {
+            return a.compareTo(b) > 0;
+        }
+    }
+
+    private static class task43 {
+        public static void main(String[] args) {
+            int a = 42 / 0;
+        }
+    }
+
+    private static class task44 {
+        public static void main(String[] args) throws InterruptedException {
+            readData();
+        }
+
+        public static void readData() throws InterruptedException {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            while (true) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+                try {
+                    int temp = Integer.parseInt(bufferedReader.readLine());
+                    arrayList.add(temp);
+                } catch (NumberFormatException e) {
+                    arrayList.forEach(System.out::println);
+                    Thread.sleep(200);
+                    e.printStackTrace();
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //напишите тут ваш код
+        }
+    }
+
+    private static class task45 {
+        public static void main(String[] args) throws Exception {
+            //напишите тут ваш код
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String consoleInput = bufferedReader.readLine();
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
+            Date date = simpleDateFormat.parse(consoleInput);
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+            System.out.println(newDateFormat.format(date).toUpperCase());
+        }
+    }
+
+    private static class task46 {
+        public static void main(String[] args) throws Exception {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            ArrayList<String> list = new ArrayList<>();
+            while (true) {
+                String s = reader.readLine();
+                if (s.isEmpty()) break;
+                list.add(s);
+            }
+
+            String[] array = list.toArray(new String[0]);
+            sort(array);
+
+            for (String x : array) {
+                System.out.println(x);
+            }
+        }
+
+        public static void sort(String[] array) {
+
+            ArrayList<String> stringArrayList = new ArrayList<>();
+            ArrayList<Integer> integerArrayList = new ArrayList<>();
+            isGreaterThan("a", "b");
+
+            for (int i = 0; i < array.length; i++) {
+                if (isNumber(array[i])) {
+                    integerArrayList.add(Integer.parseInt(array[i]));
+
+                } else stringArrayList.add(array[i]);
+            }
+            Collections.sort(stringArrayList);
+            Collections.sort(integerArrayList);
+            Collections.reverse(integerArrayList);
+
+            for (int i = 0; i < stringArrayList.size(); i++) {
+                array[i] = stringArrayList.get(i);
+            }
+            for (int i = stringArrayList.size(); i < array.length; i++) {
+                array[i] = String.valueOf(integerArrayList.get(i - stringArrayList.size()));
+            }
+
+            // напишите тут ваш код
+        }
+
+        // Метод для сравнения строк: 'а' больше чем 'b'
+        public static boolean isGreaterThan(String a, String b) {
+            return a.compareTo(b) > 0;
+        }
+
+
+        // Переданная строка - это число?
+        public static boolean isNumber(String s) {
+            if (s.length() == 0) return false;
+
+            char[] chars = s.toCharArray();
+            for (int i = 0; i < chars.length; i++) {
+                char c = chars[i];
+                if ((i != 0 && c == '-') // Строка содержит '-'
+                        || (!Character.isDigit(c) && c != '-') // или не цифра и не начинается с '-'
+                        || (chars.length == 1 && c == '-')) // или одиночный '-'
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    private static class task47 {
+        public static void main(String[] args) {
+            int a = 0;
+            int b = (byte) a + 46;
+            byte c = (byte) (a * b);
+            double f = (float) 1234.15;
+            long d = (char) (a + f / c + b);
+            System.out.println(d);
+        }
+    }
+
+    private static class task48 {
+
+        public static void main(String[] args) {
+            String s = "Я не хочу изучать Java, я хочу большую зарплату";
+            char[] array = s.toCharArray();
+
+            ArrayList<Character> arrayList = new ArrayList<>();
+            for (char ch : array) {
+                arrayList.add(ch);
+            }
+            System.out.println(s);
+            while (arrayList.size() > 8) {
+                arrayList.remove(0);
+                for (char c : arrayList
+                        ) {
+                    System.out.print(c);
+                }
+                System.out.println("");
+            }
+            //напишите тут ваш код
+        }
+    }
+
+    private static class task49 {
+        public static void main(String[] args) throws Exception {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+            // Алфавит
+            String abc = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+            char[] abcArray = abc.toCharArray();
+
+            ArrayList<Character> alphabet = new ArrayList<Character>();
+            for (int i = 0; i < abcArray.length; i++) {
+                alphabet.add(abcArray[i]);
+            }
+
+            // Ввод строк
+            ArrayList<String> list = new ArrayList<String>();
+            for (int i = 0; i < 3; i++) {
+                String s = reader.readLine();
+                list.add(s.toLowerCase());
+            }
+
+            Map<Character, Long> map = new HashMap<>();
+            for (Character ch : alphabet) {
+                map.put(ch, 0L);
+            }
+            long count = 0;
+            for (String str : list) {
+                for (char ch : alphabet
+                        ) {
+                    count = str.chars().filter(charar -> charar == ch).count();
+                    long tempconut = map.get(ch);
+                    map.put(ch, tempconut + count);
+                }
+                count = 0;
+            }
+            Map<Character, Long> newMap = new TreeMap<>(map);
+            newMap.entrySet().forEach(characterLongEntry -> System.out.println(characterLongEntry.getKey() + " " + characterLongEntry.getValue()));
+
+        }
+    }
+
+    private static class task50 {
+
+    }
+
+    private static class task51 {
+        public static void main(String[] args) throws Exception {
+            int[] data = new int[]{1, 2, 3, 5, -2, -8, 0, 77, 5, 5};
+
+            Pair<Integer, Integer> result = getMinimumAndIndex(data);
+
+            System.out.println("The minimum is " + result.x);
+            System.out.println("The index of the minimum element is " + result.y);
+        }
+
+        public static Pair<Integer, Integer> getMinimumAndIndex(int[] array) {
+            if (array == null || array.length == 0) {
+                return new Pair<Integer, Integer>(null, null);
+            }
+            //  Pair<Integer, Integer> pair = new Pair<Integer, Integer>();
+            Pair<Integer, Integer> pair = new Pair<>(0, 0);
+            int[] temp = new int[array.length];
+            for (int i = 0; i < array.length; i++) {
+                temp[i] = array[i];
+            }
+            Arrays.sort(temp);
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == temp[0]) {
+                    pair.x = array[i];
+                    pair.y = i;
+                }
+            }
+            return pair;
+        }
+
+
+        public static class Pair<X, Y> {
+            public X x;
+            public Y y;
+
+            public Pair(X x, Y y) {
+                this.x = x;
+                this.y = y;
+            }
+
+        }
+    }
+
+    //чтение из файла, запись в String и вывод на экран
+    private static class task52 {
+        public static void main(String[] args) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String s = bufferedReader.readLine();
+            FileInputStream fileInputStream = new FileInputStream(s);
+            String output = getFileContent(fileInputStream, "Utf-8");
+            System.out.println(output);
+            fileInputStream.close();
+            bufferedReader.close();
+        }
+
+        public static String getFileContent(
+                FileInputStream fis,
+                String encoding) throws IOException {
+            try (BufferedReader br =
+                         new BufferedReader(new InputStreamReader(fis, encoding))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                    sb.append('\n');
+                }
+                return sb.toString();
+            }
+        }
+
+    }
+
+    private static class task53 {
+        public static void main(String[] args) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            FileInputStream fileInputStream = new FileInputStream(bufferedReader.readLine());
+            StringBuilder stringBuilder = new StringBuilder();
+            while (fileInputStream.available() != 0) {
+                stringBuilder.append((char) fileInputStream.read());
+            }
+            System.out.println(stringBuilder.toString());
+            bufferedReader.close();
+            fileInputStream.close();
+        }
+
+    }
+
+    //запись из массива в файл
+    private static class task54 {
+
+        public static void main(String[] args) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            File file = new File(bufferedReader.readLine());
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            List<String> list = new ArrayList<>();
+            String temp;
+            while (!(temp = bufferedReader.readLine()).equals("exit")) {
+                list.add(temp);
+            }
+            list.add("exit");
+            for (String s : list
+                    ) {
+                bufferedWriter.write(s);
+            }
+            bufferedWriter.close();
+        }
+    }
 }
+
+
 
