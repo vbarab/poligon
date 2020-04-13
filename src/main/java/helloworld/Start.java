@@ -1,9 +1,7 @@
 package helloworld;
 
 import org.apache.commons.lang3.StringUtils;
-import sun.misc.Regexp;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 public class Start {
 
     public static void main(String[] args) throws Exception {
-        task54.main(args);
+        task55.main(args);
     }
 
     private static class task1 {
@@ -703,7 +701,7 @@ public class Start {
 
             ArrayList<String> result = doubleValues(list);
             for (String s : result
-                    ) {
+            ) {
                 System.out.println(s);
 
             }
@@ -938,9 +936,9 @@ public class Start {
             int count = 0;
             ArrayList<String> arrayList = new ArrayList<>();
             for (Map.Entry entry : map.entrySet()
-                    ) {
+            ) {
                 for (Map.Entry copyEntry : copy.entrySet()
-                        ) {
+                ) {
                     if (copyEntry.getValue().equals(entry.getValue())) {
                         count++;
                     }
@@ -954,7 +952,7 @@ public class Start {
                 count = 0;
             }
             for (String s : arrayList
-                    ) {
+            ) {
                 map.entrySet().removeIf(stringStringEntry -> stringStringEntry.getValue().equals(s));
             }
 
@@ -987,7 +985,7 @@ public class Start {
             String[] arr = s.split("\\w+\\s+/g");
             //  Arrays.stream(arr).forEach(s1 -> StringUtils.capitalize(s1));
             //   Arrays.stream(arr).forEach(System.out::println);
-            Regexp regexp = new Regexp("\\s +");
+            // Regexp regexp = new Regexp("\\s +");
 
 
         }
@@ -1191,7 +1189,7 @@ public class Start {
             while (arrayList.size() > 8) {
                 arrayList.remove(0);
                 for (char c : arrayList
-                        ) {
+                ) {
                     System.out.print(c);
                 }
                 System.out.println("");
@@ -1227,7 +1225,7 @@ public class Start {
             long count = 0;
             for (String str : list) {
                 for (char ch : alphabet
-                        ) {
+                ) {
                     count = str.chars().filter(charar -> charar == ch).count();
                     long tempconut = map.get(ch);
                     map.put(ch, tempconut + count);
@@ -1346,12 +1344,43 @@ public class Start {
             }
             list.add("exit");
             for (String s : list
-                    ) {
+            ) {
                 bufferedWriter.write(s);
             }
             bufferedWriter.close();
         }
     }
+
+    public static class task55 {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            int numberOfStudents = scanner.nextInt();
+            int A, B, C, D;
+            int Acounter = 0, Bcounter = 0, Ccounter = 0, Dcounter = 0;
+            A = 5;
+            B = 4;
+            C = 3;
+            D = 2;
+            int temp;
+
+            for (int i = 0; i < numberOfStudents; i++) {
+                temp = scanner.nextInt();
+                if (temp == 5) {
+                    Acounter++;
+                } else if (temp == 4) {
+                    Bcounter++;
+                } else if (temp == 3) {
+                    Ccounter++;
+                } else if (temp == 2) {
+                    Dcounter++;
+                }
+
+            }
+            System.out.println(Dcounter + " " + Ccounter + " " + Bcounter + " " + Acounter);
+
+        }
+    }
+
 }
 
 
